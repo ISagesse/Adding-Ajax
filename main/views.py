@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, HttpResponse
 from .models import Note
 
 # Create your views here.
@@ -10,5 +10,7 @@ def index(request):
 
 
 def create_note(request):
-    Note.objects.create(note=request.POST['note'])
-    return redirect('/')
+    if request.method == "post":
+
+        Note.objects.create(note=request.POST['note'])
+        return HttpResponse('Note has been created')
